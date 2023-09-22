@@ -21,7 +21,13 @@ const userSchema = new mongoose.Schema({
   virtualMoney: {
       type: Number,
       default: 1000 // Initial virtual money assigned to the user
-  }
+  },
+  bets: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Bet' // Reference the Bet model
+    }
+  ]
 });
 
 
