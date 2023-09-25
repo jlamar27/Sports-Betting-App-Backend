@@ -1,4 +1,3 @@
-// import connection, grab schema and model
 import mongoose from "mongoose";
 
 // define user schema
