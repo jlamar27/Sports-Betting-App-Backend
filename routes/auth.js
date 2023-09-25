@@ -1,11 +1,10 @@
 import { Router } from "express";
-import bycrypt from "bcrypt";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-require('dotenv').config();
+import 'dotenv/config';
 
 import User from "../models/User.js"
 import verifyAuth from "../middlewares/verifyAuth.js"
-import bcrypt from "bcryptjs/dist/bcrypt.js";
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
@@ -51,6 +50,8 @@ router.post('/signup', async (req, res) => {
         const data = {
             id: user._id,
             username: user.username,
+            email: user.email,
+            hash: user.hash,
             exp: getExpiration(),
         }
 

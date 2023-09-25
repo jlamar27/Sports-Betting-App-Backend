@@ -1,20 +1,23 @@
-require("dotenv").config()
-const mongoose = require("mongoose")
+import 'dotenv/config';
+import mongoose from "mongoose";
 
 // get env variables
-const { DATABASE_URL } = process.env
+const DATABASE_URL = process.env.DATABASE_URL
 
 // connect to mongoose
-mongoose.connect(DATABASE_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+mongoose.connect(DATABASE_URL)
+
+// Listen to connected
+mongoose.connection.on("connected", () => {
+  console.log("connected to MongoDB");
 })
 
-// Connection Messages
-mongoose.connection
-  .on("open", () => console.log("Connected to Mongo"))
-  .on("close", () => console.log("Disconnected from Mongo"))
-  .on("error", error => console.log(error))
+// Listen to disconnected
+mongoose.connection.on("disconnected", () => {
+  console.log("Disconnected from MongoDB!");
+});
 
-// export connection
-module.exports = mongoose
+// Listen to error and log it 
+mongoose.connection.on("error", (err) => {
+  console.log(`MongoDB connection error: ${err}`);
+});

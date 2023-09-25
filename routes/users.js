@@ -1,18 +1,8 @@
-var express = require('express');
-var router = express.Router();
+import { Router } from "express";
 
-// user test
-router.post('/users', async (req, res) => {
-  try {
-    const newUser = new User(req.body);
-    console.log(newUser)
-    await newUser.save();
-    res.status(201).json(newUser);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
+const router = Router()
+
+router.get('/:handle', userController.getProfile)
 
 
-
-module.exports = router;
+export default router;
