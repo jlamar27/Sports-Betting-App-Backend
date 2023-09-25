@@ -1,5 +1,4 @@
-const { Schema, model } = require("../connection/db")
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const matchSchema = new mongoose.Schema({
     matchId: {
@@ -7,11 +6,11 @@ const matchSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    teamA: {
+    awayTeam: {
         type: String,
         required: true
     },
-    teamB: {
+    homeTeam: {
         type: String,
         required: true
     },
@@ -23,8 +22,9 @@ const matchSchema = new mongoose.Schema({
         teamA: Number,
         teamB: Number
     },
-    overUnderOdds: Number
+    overUnderOdds: Number,
+    spread: Number,
 });
 
 
-module.exports = mongoose.model('Match', matchSchema);
+export default mongoose.model('Match', matchSchema);

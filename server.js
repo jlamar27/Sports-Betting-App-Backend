@@ -8,6 +8,7 @@ import './connection/db.js'
 import authRouter from './routes/auth.js';
 import betRouter from './routes/bet.js';
 import userRouter from './routes/users.js'
+import matchRouter from './routes/match.js';
 
 
 const { PORT = 8080 } = process.env
@@ -23,6 +24,7 @@ app.use(morgan('dev'));
 app.use('/api/auth/', authRouter)
 app.use('/bet/', betRouter )
 app.use('/user/', userRouter)
+app.use('/match/', matchRouter)
 
 // Server listener
 app.listen(PORT, () => console.log(`listening on port ${PORT}`))
