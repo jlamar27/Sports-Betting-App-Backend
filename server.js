@@ -1,15 +1,24 @@
-require("dotenv").config() // load variables from .env
-const express = require("express")
-const registerMiddleware = require("./utils/middleware")
+import express from 'express';
+import logger from 'morgan';
+import cors from 'cors';
+import morgan from 'morgan';
 
-// Grab any ENV variables to be used, set default values in case .env file missing
-const { PORT = 3000 } = process.env
+import './connection/db.js'
+
+import authRouter from './routes/auth.js';
+// import betRouter from './routes/bet.js';
+
+const { PORT = 8080 } = process.env
 
 // The Application Object
-const app = express()
+const app = express();
 
-// registerMiddleware
-registerMiddleware(app)
+app.use(cors());
+app.use(express.json());
+app.use(morgan('dev'));
+
+// app.use('/api/user/', userRouter)
+app.use('/api/auth/', authRouter)
 
 // Server listener
 app.listen(PORT, () => console.log(`listening on port ${PORT}`))

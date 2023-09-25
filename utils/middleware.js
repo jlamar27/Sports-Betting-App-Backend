@@ -5,7 +5,7 @@ const cors = require("cors")
 const corsOptions = require("./cors")
 // import controllers
 const HomeController = require("../controllers/HomeController")
-const AuthController = require("../controllers/AuthController")
+const authRouter = require("../routes/auth");
 
 // import models
 const User = require("../models/User")

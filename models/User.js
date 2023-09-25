@@ -1,6 +1,5 @@
 // import connection, grab schema and model
-const { Schema, model } = require("../connection/db")
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 // define user schema
 const userSchema = new mongoose.Schema({
@@ -14,7 +13,7 @@ const userSchema = new mongoose.Schema({
       required: true,
       unique: true
   },
-  password: {
+  hash: {
       type: String,
       required: true
   },
@@ -30,9 +29,5 @@ const userSchema = new mongoose.Schema({
   ]
 });
 
-
-// define user model
-const User = model("User", userSchema)
-
 // export User
-module.exports = User
+export default mongoose.model('User', userSchema)
