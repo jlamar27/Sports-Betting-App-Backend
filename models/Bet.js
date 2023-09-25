@@ -1,5 +1,4 @@
-const { Schema, model } = require("../connection/db")
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 
 const betSchema = new mongoose.Schema({
@@ -11,10 +10,6 @@ const betSchema = new mongoose.Schema({
     betType: {
         type: String,
         enum: ['moneyLine', 'overUnder'],
-        required: true
-    },
-    betValue: {
-        type: String,
         required: true
     },
     betAmount: {
@@ -29,4 +24,4 @@ const betSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Bet', betSchema);
+export default mongoose.model('Bet', betSchema);
