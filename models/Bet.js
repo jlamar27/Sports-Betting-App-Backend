@@ -17,7 +17,7 @@ const betSchema = new mongoose.Schema({
         enum: ['moneyLine', 'overUnder','spread'],
         required: true
     },
-    betAmount: {
+    betValue: {
         type: Number,
         required: true
     },
