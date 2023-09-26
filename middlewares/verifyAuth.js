@@ -1,10 +1,9 @@
 import jwt from "jsonwebtoken"
-import 'dotenv/config';
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
 export default async function verifyAuth(req, res, next) {
-    const token = req.headers.authorization;
+    const token = req.headers.authorization.replace('Bearer ', '');
 
     if(!token) {
         return res.status(401).json({
@@ -15,6 +14,7 @@ export default async function verifyAuth(req, res, next) {
 
     const data = jwt.verify(token, SECRET_KEY);
     const currentTime = new Date();
+
     if(data.exp < currentTime.getTime()) {
         return res.status(401).json({
             status: 401,

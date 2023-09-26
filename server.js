@@ -2,6 +2,7 @@ import express from 'express';
 import logger from 'morgan';
 import cors from 'cors';
 import morgan from 'morgan';
+import 'dotenv/config'
 
 import './connection/db.js'
 
@@ -20,7 +21,7 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
-// app.use('/api/user/', userRouter)
+
 app.use('/api/auth/', authRouter)
 app.use('/bet/', betRouter )
 app.use('/user/', userRouter)

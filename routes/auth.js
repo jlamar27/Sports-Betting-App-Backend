@@ -1,7 +1,6 @@
 import { Router } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import 'dotenv/config';
 
 import User from "../models/User.js"
 import verifyAuth from "../middlewares/verifyAuth.js"
@@ -16,7 +15,7 @@ function getExpiration(){
 
 const router = Router();
 
-router.get('/isValidToken', verifyAuth, async (req, res) => {
+router.get('/isValidToken', verifyAuth, async (req, res,) => {
     try {
         if(req.id){
             res.status(200).json({

@@ -2,6 +2,11 @@ import mongoose from 'mongoose';
 
 
 const betSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User', 
+        required: true
+    },
     match: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Match',
@@ -9,7 +14,7 @@ const betSchema = new mongoose.Schema({
     },
     betType: {
         type: String,
-        enum: ['moneyLine', 'overUnder'],
+        enum: ['moneyLine', 'overUnder','spread'],
         required: true
     },
     betAmount: {
