@@ -7,8 +7,7 @@ export async function createBet(req, res) {
     const { match, betType, betAmount } = req.body;
     // Get the user ID from the request, possibly from authentication
     const userId = req.params.userId; // Replace with the actual way to get the user ID
-    console.log(req.body);
-    console.log(req.params.userId);
+
     // Query the User model to find the user by their ID
     const user = await User.findById(userId);
 
@@ -17,11 +16,12 @@ export async function createBet(req, res) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Check if the user's virtual money is less than or equal to 0
-    if (user.virtualMoney <= 0) {
+    console.log(`User's virtual money: ${user.virtualMoney}, Bet amount: ${betAmount}`);
+    // Check if the user's virtual money minus the bet amount is less than 0
+    if (Number(user.virtualMoney) - Number(betAmount) < 0) {
       return res
         .status(400)
-        .json({ error: "You have run out of money. You cannot place a bet." });
+        .json({ error: "You do not have enough money to place this bet." });
     }
 
     // Create a new bet instance
