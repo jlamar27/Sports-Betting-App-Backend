@@ -9,43 +9,57 @@ export async function createBet(req, res) {
     const userId = req.params.userId; // Replace with the actual way to get the user ID
     console.log(req.body);
     console.log(req.params.userId);
-    // Query the User model to find the user by their ID
-    const user = await User.findById(userId);
-
-    // if (!user) {
-    //   return res.status(404).json({ error: "User not found" });
-    // }
-
-    // Create a new bet instance
-    const newBet = new Bet({
-      user: user._id, // Set the user field to the user object
-      match,
-      betType,
-      betAmount,
-      potentialReturn: 0, // You can calculate this based on the bet type and amount
-      outcome: "pending", // The initial outcome is set to 'pending'
-    });
-
-    // Save the new bet to the database
-    await newBet.save();
-
-    // You can add this bet to the user's bets array
-    user.bets.push(newBet);
-
-    // Update the user's virtual money balance (subtract the bet amount)
-    user.virtualMoney -= betAmount;
-
-    // Save the updated user object
-    await user.save();
-
-    res.status(201).json(newBet); // Respond with the created bet
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while creating the bet." });
-  }
-}
+    //export async function createBet(req, res) {
+      try {
+        // Extract data from the request body
+        const { match, betType, betAmount } = req.body;
+        // Get the user ID from the request, possibly from authentication
+        const userId = req.params.userId; // Replace with the actual way to get the user ID
+        console.log(req.body);
+        console.log(req.params.userId);
+        // Query the User model to find the user by their ID
+        const user = await User.findById(userId);
+    
+        // Check if the user exists
+        if (!user) {
+          return res.status(404).json({ error: "User not found" });
+        }
+    
+        // Check if the user's virtual money is less than or equal to 0
+        if (user.virtualMoney <= 0) {
+          return res.status(400).json({ error: "You have run out of money. You cannot place a bet." });
+        }
+    
+        // Create a new bet instance
+        const newBet = new Bet({
+          user: user._id, // Set the user field to the user object
+          match,
+          betType,
+          betAmount,
+          potentialReturn: 0, // You can calculate this based on the bet type and amount
+          outcome: "pending", // The initial outcome is set to 'pending'
+        });
+    
+        // Save the new bet to the database
+        await newBet.save();
+    
+        // You can add this bet to the user's bets array
+        user.bets.push(newBet);
+    
+        // Update the user's virtual money balance (subtract the bet amount)
+        user.virtualMoney -= betAmount;
+    
+        // Save the updated user object
+        await user.save();
+    
+        res.status(201).json(newBet); // Respond with the created bet
+      } catch (error) {
+        console.error(error);
+        res
+          .status(500)
+          .json({ error: "An error occurred while creating the bet." });
+      }
+    }
 
 export async function getSingleBet(req, res) {
   try {
