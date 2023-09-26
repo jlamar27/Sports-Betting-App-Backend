@@ -5,7 +5,6 @@ import verifyAuth from "../middlewares/verifyAuth.js";
 
 import * as betController from "../controllers/bet.js";
 
-// add verifyAuth to each
 
 // create a bet
 router.post("/:userId", verifyAuth, betController.createBet);
