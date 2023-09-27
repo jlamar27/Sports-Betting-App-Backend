@@ -6,14 +6,11 @@ export async function createBet(req, res) {
   try {
     // Extract data from the request body
 
-    // const { match, betType, betValue } = req.body;
-    // console.log(match, betType, betValue)
-    const{type, team, price, betValue} = req.body;
+    const{type, team, price, betValue, match} = req.body;
     
     // Get the user ID from the request, possibly from authentication
     const userId = req.params.userId; // Replace with the actual way to get the user ID
 
-    // Query the User model to find the user by their ID
     const user = await User.findById(userId);
 
     // Check if the user exists
