@@ -35,22 +35,25 @@ router.get('/isValidToken', verifyAuth, async (req, res,) => {
 })
 
 router.post('/signup', async (req, res) => {
+  console.log(req.body);
     try {
-        const { username, email, password } = req.body;
+        const { username, password } = req.body;
         const hash = await bcrypt.hash(password, 10);
+        console.log(hash, username, password);
         const user = await User.create({
             username,
             hash,
             virtualMoney: 1000,
             bets: []
         });
+        console.log(user);
         
         const data = {
             id: user._id,
             username: user.username,
-            hash: user.hash,
             exp: getExpiration(),
         }
+        console.log(data);
 
         const token = jwt.sign(data, SECRET_KEY);
 
@@ -59,6 +62,7 @@ router.post('/signup', async (req, res) => {
             message: `Successfully created user: ${user.username}`
         });
     } catch (error) {
+      console.log(error);
         res.status(400).json({
             status: 400,
             error: "Unable to Create User",
@@ -69,7 +73,6 @@ router.post('/signup', async (req, res) => {
 
 router.post('/signin', async (req, res) => {
     try {
-        // Add email?
       const { username, password } = req.body;
       const user = await User.findOne({ username: username });
       const hash = user.hash;

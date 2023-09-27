@@ -8,19 +8,30 @@ const betSchema = new mongoose.Schema({
         required: true
     },
     match: {
-        type: 'string',
+        type: String,
         required: true
     },
     betType: {
         type: String,
-        enum: ['moneyLine', 'overUnder','spread'],
+        enum: ['MoneyLine', 'O/U','Spread'],
         required: true
+    },
+    subtype: {
+        type: String,
+        enum: ['Over', 'Under'],
     },
     betValue: {
         type: Number,
         required: true
     },
+    team: {
+        type: String,
+    },
+    odds: {
+        type: Number
+    },
     potentialReturn: Number,
+    point: Number,
     outcome: {
         type: String,
         enum: ['win', 'lose', 'pending'],
