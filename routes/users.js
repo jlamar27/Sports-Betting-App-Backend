@@ -7,7 +7,10 @@ import verifyAuth from "../middlewares/verifyAuth.js";
 
 
 //verifyAuth add to protected routes
+
 router.get('/:id', verifyAuth, userController.getProfile)
+
+router.delete('/:id', verifyAuth, userController.deleteUser)
 
 
 export default router;
