@@ -13,8 +13,12 @@ const betSchema = new mongoose.Schema({
     },
     betType: {
         type: String,
-        enum: ['moneyLine', 'overUnder','spread'],
+        enum: ['MoneyLine', 'O/U','Spread'],
         required: true
+    },
+    subtype: {
+        type: String,
+        enum: ['Over', 'Under'],
     },
     betValue: {
         type: Number,
@@ -27,6 +31,7 @@ const betSchema = new mongoose.Schema({
         type: Number
     },
     potentialReturn: Number,
+    point: Number,
     outcome: {
         type: String,
         enum: ['win', 'lose', 'pending'],
