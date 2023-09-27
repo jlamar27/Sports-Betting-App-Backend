@@ -8,8 +8,7 @@ const betSchema = new mongoose.Schema({
         required: true
     },
     match: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Match',
+        type: 'string',
         required: true
     },
     betType: {

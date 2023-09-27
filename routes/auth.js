@@ -40,7 +40,6 @@ router.post('/signup', async (req, res) => {
         const hash = await bcrypt.hash(password, 10);
         const user = await User.create({
             username,
-            email,
             hash,
             virtualMoney: 1000,
             bets: []
@@ -49,7 +48,6 @@ router.post('/signup', async (req, res) => {
         const data = {
             id: user._id,
             username: user.username,
-            email: user.email,
             hash: user.hash,
             exp: getExpiration(),
         }
@@ -90,11 +88,14 @@ router.post('/signin', async (req, res) => {
   
       // Create a token using JWToken 
       const token = jwt.sign(data, SECRET_KEY);
+
+      console.log(user._id)
   
       // return the token
       return res.status(200).json({
         status: 200,
         message: `Successfully signed in ${user.username}`,
+        user: user._id,
         token: token
       })
     } catch (error) {

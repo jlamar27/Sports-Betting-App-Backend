@@ -7,7 +7,7 @@ import * as betController from "../controllers/bet.js";
 
 
 // create a bet
-router.post("/:userId", verifyAuth, betController.createBet);
+router.post("/:userId", betController.createBet);
 
 // get a single bet by its id
 router.get("/:userId/:id", verifyAuth, betController.getSingleBet);
