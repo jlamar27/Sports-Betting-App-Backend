@@ -8,7 +8,7 @@ const betSchema = new mongoose.Schema({
         required: true
     },
     match: {
-        type: 'string',
+        type: String,
         required: true
     },
     betType: {
@@ -19,6 +19,12 @@ const betSchema = new mongoose.Schema({
     betValue: {
         type: Number,
         required: true
+    },
+    team: {
+        type: String,
+    },
+    odds: {
+        type: Number
     },
     potentialReturn: Number,
     outcome: {

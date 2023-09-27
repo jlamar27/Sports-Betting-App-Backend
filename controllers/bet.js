@@ -6,7 +6,7 @@ export async function createBet(req, res) {
   try {
     // Extract data from the request body
 
-    const{type, team, price, betValue, match} = req.body;
+    const{type, team, price, betValue, match, potentialReturn} = req.body;
     
     // Get the user ID from the request, possibly from authentication
     const userId = req.params.userId; // Replace with the actual way to get the user ID
@@ -31,9 +31,11 @@ export async function createBet(req, res) {
     const newBet = new Bet({
       user: user._id, // Set the user field to the user object
       match,
-      betType,
+      betType: type,
       betValue,
-      potentialReturn: 0, // You can calculate this based on the bet type and amount
+      team,
+      odds: price,
+      potentialReturn, 
       outcome: "pending", // The initial outcome is set to 'pending'
     });
 
