@@ -2,9 +2,12 @@ import Bet from "../models/Bet.js";
 import User from "../models/User.js";
 
 export async function createBet(req, res) {
+  console.log(req.body,"Looook heeerrrrrreee");
   try {
     // Extract data from the request body
-    const { match, betType, betAmount } = req.body;
+    // const { match, betType, betValue } = req.body;
+    // console.log(match, betType, betValue)
+    const{type, team, price, betValue} = req.body;
     // Get the user ID from the request, possibly from authentication
     const userId = req.params.userId; // Replace with the actual way to get the user ID
 
@@ -16,9 +19,9 @@ export async function createBet(req, res) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    console.log(`User's virtual money: ${user.virtualMoney}, Bet amount: ${betAmount}`);
+    console.log(`User's virtual money: ${user.virtualMoney}, Bet amount: ${betValue}`);
     // Check if the user's virtual money minus the bet amount is less than 0
-    if (Number(user.virtualMoney) - Number(betAmount) < 0) {
+    if (Number(user.virtualMoney) - Number(betValue) < 0) {
       return res
         .status(400)
         .json({ error: "You do not have enough money to place this bet." });
@@ -29,7 +32,7 @@ export async function createBet(req, res) {
       user: user._id, // Set the user field to the user object
       match,
       betType,
-      betAmount,
+      betValue,
       potentialReturn: 0, // You can calculate this based on the bet type and amount
       outcome: "pending", // The initial outcome is set to 'pending'
     });
@@ -41,7 +44,7 @@ export async function createBet(req, res) {
     user.bets.push(newBet);
 
     // Update the user's virtual money balance (subtract the bet amount)
-    user.virtualMoney -= betAmount;
+    user.virtualMoney -= betValue;
 
     // Save the updated user object
     await user.save();

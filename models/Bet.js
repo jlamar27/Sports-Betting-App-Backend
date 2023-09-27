@@ -8,8 +8,7 @@ const betSchema = new mongoose.Schema({
         required: true
     },
     match: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Match',
+        type: 'string',
         required: true
     },
     betType: {
@@ -17,7 +16,7 @@ const betSchema = new mongoose.Schema({
         enum: ['moneyLine', 'overUnder','spread'],
         required: true
     },
-    betAmount: {
+    betValue: {
         type: Number,
         required: true
     },
