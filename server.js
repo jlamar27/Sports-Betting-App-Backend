@@ -12,7 +12,7 @@ import userRouter from './routes/users.js'
 import matchRouter from './routes/match.js';
 
 
-const { PORT = 8080 } = process.env
+const { PORT = 3000 } = process.env.PORT
 
 // The Application Object
 const app = express();
@@ -23,9 +23,9 @@ app.use(morgan('dev'));
 
 
 app.use('/api/auth/', authRouter)
-app.use('/bet/', betRouter )
-app.use('/user/', userRouter)
-app.use('/match/', matchRouter)
+app.use('/api/bet/', betRouter )
+app.use('/api/user/', userRouter)
+app.use('/api/match/', matchRouter)
 
 // Server listener
 app.listen(PORT, () => console.log(`listening on port ${PORT}`))
