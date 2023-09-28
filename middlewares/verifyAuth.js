@@ -3,7 +3,8 @@ import jwt from "jsonwebtoken"
 const SECRET_KEY = process.env.SECRET_KEY;
 
 export default async function verifyAuth(req, res, next) {
-    const token = req.headers.authorization;
+    const token = req.headers.authorization.replace("Bearer ", '')
+    // ("Bearer ", '');
 
     if(!token) {
         return res.status(401).json({
