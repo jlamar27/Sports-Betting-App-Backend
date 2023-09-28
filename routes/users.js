@@ -12,5 +12,7 @@ router.get('/:id', verifyAuth, userController.getProfile)
 
 router.delete('/:id', verifyAuth, userController.deleteUser)
 
+router.post('/:id', verifyAuth, userController.addCredits)
+
 
 export default router;
