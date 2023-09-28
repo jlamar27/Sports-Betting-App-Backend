@@ -27,7 +27,7 @@ const betSchema = new mongoose.Schema({
     team: {
         type: String,
     },
-    odds: {
+    price: {
         type: Number
     },
     potentialReturn: Number,
