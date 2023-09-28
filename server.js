@@ -12,7 +12,7 @@ import userRouter from './routes/users.js'
 import matchRouter from './routes/match.js';
 
 
-const { PORT = 3000 } = process.env.PORT
+const PORT = process.env.PORT
 
 // The Application Object
 const app = express();
