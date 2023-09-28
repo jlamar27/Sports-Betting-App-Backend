@@ -1,15 +1,12 @@
 import User from "../models/User.js";
+import Bet from "../models/Bet.js";
 
 export async function getProfile(req, res) {
   try {
-    // Get the user ID from the request, possibly from authentication
-    const userId = req.params.id; // Replace with the actual way to get the user ID
-
-    // Query the User model to find the user by their ID
+    const userId = req.params.id;
     const user = await User.findById(userId);
 
     if (!user) {
-      // If the user is not found, return a 404 Not Found response
       return res.status(404).json({ message: "User not found" });
     }
 
@@ -24,18 +21,20 @@ export async function getProfile(req, res) {
 
 export async function deleteUser(req, res) {
   try {
-    console.log(req)
     const userId = req.params.id;
 
-    const user = await User.findByIdAndDelete(userId);
+    const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
     await Bet.deleteMany({ user: userId });
+    await User.deleteOne({ _id: userId });
 
-    res.json({ message: "User and associated bets deleted" });
+    return res
+      .status(200)
+      .json({ message: "User and associated bets deleted" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });

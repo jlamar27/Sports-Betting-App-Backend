@@ -69,7 +69,7 @@ export async function getSingleBet(req, res) {
   try {
     const { userId, id } = req.params;
 
-    // console.log(req.params);
+    console.log(req.params);
 
     if (!id) {
       return res.status(404).json({ message: "Bet not Found" });
