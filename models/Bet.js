@@ -13,7 +13,7 @@ const betSchema = new mongoose.Schema({
     },
     betType: {
         type: String,
-        enum: ['MoneyLine', 'O/U','Spread'],
+        enum: ['Moneyline', 'O/U','Spread'],
         required: true
     },
     subtype: {
