@@ -83,3 +83,29 @@ export async function getSingleBet(req, res) {
     res.status(500).json({ message: "Internal server error" });
   }
 }
+
+export async function updateBet(req, res) {
+  try {
+    const { outcome } = req.body; // Get betId and outcome from the request body
+
+    const user = await User.findById(req.params.userId);
+
+    const updatedBet = await Bet.findByIdAndUpdate(req.params.id, { outcome }, { new: true });
+
+    if(!updatedBet) {
+      return res.status(404).json({ error: 'Bet not found' });
+    }
+
+    if (outcome === 'win') {
+      user.virtualMoney += updatedBet.potentialReturn;
+      await user.save();
+    }
+
+    res.status(200).json(updatedBet);
+  } catch(error) {
+    console.log("In backend updateBet catch error portion");
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while updating the bet.' });
+  }
+}
+

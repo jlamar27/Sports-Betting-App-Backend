@@ -12,4 +12,7 @@ router.post("/:userId", verifyAuth, betController.createBet);
 // get a single bet by its id
 router.get("/:userId/:id", verifyAuth, betController.getSingleBet);
 
+// Update a bet’s outcome
+router.post("/:userId/:id", verifyAuth, betController.updateBet);
+
 export default router;
